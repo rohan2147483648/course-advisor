@@ -345,6 +345,11 @@ const doc = new Document({
 });
 
 Packer.toBuffer(doc).then((buffer) => {
-  fs.writeFileSync("CourseAdvisor_Submission.docx", buffer);
-  console.log("✅ Successfully generated CourseAdvisor_Submission.docx");
+  try {
+    fs.writeFileSync("CourseAdvisor_Submission.docx", buffer);
+    console.log("✅ Successfully updated CourseAdvisor_Submission.docx");
+  } catch (e) {
+    fs.writeFileSync("CourseAdvisor_Submission_v2.docx", buffer);
+    console.log("✅ Generated CourseAdvisor_Submission_v2.docx (since original was open in Word)");
+  }
 });
