@@ -56,10 +56,6 @@ export default function ExamTriage({ resources, onOpenResource, onFlagBroken, on
       <div className="bg-white border border-[#EAECF0] rounded-2xl p-6 sm:p-7 shadow-xs">
         <div className="flex flex-col md:flex-row md:items-center justify-between gap-4">
           <div>
-            <div className="inline-flex items-center gap-1.5 text-xs font-bold text-[#009E77] bg-[#E8FAF5] border border-[#A7F0DC] px-3 py-1 rounded-full mb-2.5">
-              <Clock className="w-3.5 h-3.5 text-[#00D09C]" />
-              Exam Prep Assistant
-            </div>
             <h1 className="text-xl sm:text-2xl font-black text-[#1E222B] tracking-tight">
               Exam Resources
             </h1>

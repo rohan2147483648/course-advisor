@@ -17,14 +17,9 @@ export default function Header({
               <BookOpen className="w-5 h-5 text-white stroke-[2.2]" />
             </div>
             <div>
-              <div className="flex items-center gap-2">
-                <span className="font-extrabold text-xl tracking-tight text-[#1E222B]">
-                  Course<span className="text-[#00D09C]">Advisor</span>
-                </span>
-                <span className="bg-[#E8FAF5] text-[#009E77] text-[11px] font-bold px-2.5 py-0.5 rounded-full border border-[#A7F0DC]">
-                  Campus
-                </span>
-              </div>
+              <span className="font-extrabold text-xl tracking-tight text-[#1E222B]">
+                Course<span className="text-[#00D09C]">Advisor</span>
+              </span>
               <p className="text-[12px] text-[#7C7E8C] font-medium hidden sm:block">
                 Elective Reviews & Exam Study Resources
               </p>

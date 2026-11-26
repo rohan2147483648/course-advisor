@@ -67,10 +67,6 @@ export default function ElectiveExplorer({ electives, onAddTipForCourse }) {
       <div className="bg-white border border-[#EAECF0] rounded-2xl p-6 sm:p-7 shadow-xs">
         <div className="flex flex-col md:flex-row md:items-center justify-between gap-4">
           <div>
-            <div className="inline-flex items-center gap-1.5 text-xs font-bold text-[#009E77] bg-[#E8FAF5] border border-[#A7F0DC] px-3 py-1 rounded-full mb-2.5">
-              <Compass className="w-3.5 h-3.5 text-[#00D09C]" />
-              Course Directory & Reviews
-            </div>
             <h1 className="text-xl sm:text-2xl font-black text-[#1E222B] tracking-tight">
               Elective Explorer
             </h1>
