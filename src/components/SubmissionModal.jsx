@@ -35,22 +35,22 @@ export default function SubmissionModal({ isOpen, onClose, onAddResource, existi
     return checkDuplicateResource(parsedData, existingResources);
   }, [parsedData, existingResources, rawText, optionalUrl]);
 
-  // Sample quick-fill buttons for reviewers
+  // Quick sample notes for quick demonstration
   const SAMPLES = [
     {
-      title: "ME3100 Midsem Tut Drill",
+      title: "ME3100 Midsem Notes",
       text: "For ME3100 Midsem under Prof Rao, skip the textbook—just solve Tut Sheets 2-4, takes 2 hours max and 3 questions came directly from it.",
       url: "https://drive.google.com/file/d/me3100-tut-quick-drill/view"
     },
     {
-      title: "CS4061 ViT Cram Sheet",
+      title: "CS4061 Quiz 1 Sheet",
       text: "CS4061 Quiz 1 with Prof Sen: memorize the CNN dimension formula sheet, takes 35 mins and saves 15 marks.",
       url: "https://drive.google.com/file/d/cs4061-cnn-dimensions/view"
     },
     {
-      title: "Duplicate Test Case (Same URL)",
+      title: "ME3100 Solved Guide",
       text: "Here is the exact ME3100 solution guide for Rao's tutorial sheets.",
-      url: "https://drive.google.com/file/d/1me3100-tut2-4-solutions-rao/view" // existing url
+      url: "https://drive.google.com/file/d/1me3100-tut2-4-solutions-rao/view" // existing url to showcase duplicate warning
     }
   ];
 
@@ -195,10 +195,10 @@ export default function SubmissionModal({ isOpen, onClose, onAddResource, existi
               </button>
             </div>
 
-            {/* Evaluator Quick-Test Strip */}
+            {/* Quick Demonstration Examples */}
             <div className="bg-[#E8FAF5] px-6 py-3 border-b border-[#A7F0DC] flex flex-wrap items-center gap-2">
               <span className="text-[11px] font-bold text-[#007054] uppercase tracking-wider">
-                1-Click Sample Notes:
+                Quick Examples:
               </span>
               {SAMPLES.map((s, idx) => (
                 <button

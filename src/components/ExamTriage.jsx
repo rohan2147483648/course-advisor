@@ -184,6 +184,8 @@ export default function ExamTriage({ resources, onOpenResource, onFlagBroken, on
       {/* Resource Cards Grid */}
       <div className="space-y-4">
         {filteredResources.map((res) => {
+          const isVerified = userVerifiedIds.includes(res.id);
+
           return (
             <div
               key={res.id}
@@ -193,128 +195,103 @@ export default function ExamTriage({ resources, onOpenResource, onFlagBroken, on
                   : 'border-[#EAECF0] hover:border-[#00D09C] hover:shadow-md'
               }`}
             >
-              <div className="flex flex-col sm:flex-row sm:items-start justify-between gap-5">
-                {/* Left content block */}
-                <div className="space-y-2.5 flex-1">
-                  {/* Top Badges: Course, Exam, Type, Time Estimate */}
-                  <div className="flex flex-wrap items-center gap-2">
-                    <span className="font-mono font-bold text-xs px-2.5 py-0.5 rounded-lg bg-[#E8FAF5] text-[#009E77] border border-[#A7F0DC]">
-                      {res.courseCode}
+              {/* Card Header: Course, Exam, Format, Time */}
+              <div className="flex flex-wrap items-center justify-between gap-2 mb-3">
+                <div className="flex flex-wrap items-center gap-2">
+                  <span className="font-mono font-bold text-xs px-2.5 py-1 rounded-lg bg-[#E8FAF5] text-[#009E77] border border-[#A7F0DC]">
+                    {res.courseCode}
+                  </span>
+                  <span className="text-xs font-bold px-2.5 py-1 rounded-lg bg-[#F3F4F6] text-[#44475B] border border-[#EAECF0]">
+                    {res.examType}
+                  </span>
+                  
+                  {/* Resource Format */}
+                  <span className="text-xs font-bold px-2.5 py-1 rounded-lg flex items-center gap-1.5 bg-[#F3F4F6] text-[#44475B] border border-[#EAECF0]">
+                    {res.type === 'YouTube' ? <Youtube className="w-3.5 h-3.5 text-rose-500" /> : <FileText className="w-3.5 h-3.5 text-[#5367FF]" />}
+                    {res.type}
+                  </span>
+
+                  {/* Time Estimate Badge */}
+                  <span className={`text-xs font-bold px-2.5 py-1 rounded-lg flex items-center gap-1.5 border ${
+                    res.timeBudget === '< 1 hr'
+                      ? 'bg-[#E8FAF5] text-[#009E77] border-[#A7F0DC]'
+                      : res.timeBudget === '2–4 hrs'
+                      ? 'bg-[#EEF1FF] text-[#5367FF] border-[#CCD4FF]'
+                      : 'bg-[#F3F4F6] text-[#44475B] border-[#EAECF0]'
+                  }`}>
+                    <Clock className="w-3.5 h-3.5 text-[#00D09C]" />
+                    <span>
+                      {res.timeEstimateMinutes <= 60 
+                        ? `${res.timeEstimateMinutes} mins`
+                        : res.timeEstimateMinutes <= 300 
+                        ? `${Math.round(res.timeEstimateMinutes / 60)} hrs`
+                        : `Weekend (~${Math.round(res.timeEstimateMinutes / 60)} hrs)`
+                      }
                     </span>
-                    <span className="text-xs font-bold px-2 py-0.5 rounded-md bg-[#F3F4F6] text-[#44475B] border border-[#EAECF0]">
-                      {res.examType}
-                    </span>
-                    
-                    {/* Resource Type */}
-                    <span className="text-xs font-bold px-2 py-0.5 rounded-md flex items-center gap-1 bg-[#F3F4F6] text-[#44475B] border border-[#EAECF0]">
-                      {res.type === 'YouTube' ? <Youtube className="w-3.5 h-3.5 text-rose-500" /> : <FileText className="w-3.5 h-3.5 text-[#5367FF]" />}
-                      {res.type}
-                    </span>
-
-                    {/* Time Required Badge (Clean, No Emojis) */}
-                    <span className={`text-xs font-bold px-2.5 py-0.5 rounded-full flex items-center gap-1.5 border ${
-                      res.timeBudget === '< 1 hr'
-                        ? 'bg-[#E8FAF5] text-[#009E77] border-[#A7F0DC]'
-                        : res.timeBudget === '2–4 hrs'
-                        ? 'bg-[#EEF1FF] text-[#5367FF] border-[#CCD4FF]'
-                        : 'bg-purple-50 text-purple-800 border-purple-200'
-                    }`}>
-                      <Clock className="w-3.5 h-3.5 text-[#00D09C]" />
-                      <span>
-                        {res.timeEstimateMinutes <= 60 
-                          ? `${res.timeEstimateMinutes} mins`
-                          : res.timeEstimateMinutes <= 300 
-                          ? `${Math.round(res.timeEstimateMinutes / 60)} hrs`
-                          : `Weekend (~${Math.round(res.timeEstimateMinutes / 60)} hrs)`
-                        }
-                      </span>
-                    </span>
-
-                    {/* Broken Link Indicator */}
-                    {res.flaggedBroken && (
-                      <span className="text-[10px] font-bold px-2 py-0.5 rounded bg-rose-100 text-rose-800 border border-rose-300">
-                        Flagged Dead Link
-                      </span>
-                    )}
-                  </div>
-
-                  {/* Resource Title */}
-                  <h3 className="text-base font-extrabold text-[#1E222B] hover:text-[#00D09C] transition-colors leading-snug">
-                    {res.title}
-                  </h3>
-
-                  {/* Senior Note Quote */}
-                  <p className="text-xs sm:text-sm text-[#44475B] bg-[#F8FAFB] rounded-xl p-3.5 border border-[#EAECF0] leading-relaxed">
-                    <span className="font-bold text-[#1E222B]">Senior Tip: </span>
-                    "{res.seniorNote}"
-                  </p>
-
-                  {/* Context Tags & Outcome Verification Signal */}
-                  <div className="flex flex-wrap items-center gap-2 pt-1">
-                    {res.contextTags.map((tag) => (
-                      <span
-                        key={tag}
-                        className={`text-[11px] font-bold px-2.5 py-0.5 rounded-md border ${
-                          tag === 'Direct Exam Match'
-                            ? 'bg-[#EEF1FF] text-[#5367FF] border-[#CCD4FF]'
-                            : tag === 'Night-Before Cram'
-                            ? 'bg-[#FFF8E7] text-[#B45309] border-[#FDE68A]'
-                            : tag === 'High Yield'
-                            ? 'bg-[#E8FAF5] text-[#009E77] border-[#A7F0DC]'
-                            : 'bg-[#F3F4F6] text-[#44475B] border-[#EAECF0]'
-                        }`}
-                      >
-                        {tag}
-                      </span>
-                    ))}
-
-                    {/* Outcome Verification Button (1 vote per person) */}
-                    {(() => {
-                      const isVerified = userVerifiedIds.includes(res.id);
-                      return (
-                        <button
-                          onClick={() => onVerifyResource(res.id)}
-                          className={`ml-auto inline-flex items-center gap-1.5 text-xs font-bold px-3 py-1 rounded-xl transition-all cursor-pointer border ${
-                            isVerified
-                              ? 'bg-[#00D09C] text-white border-[#00B386] shadow-xs'
-                              : 'bg-[#E8FAF5] text-[#009E77] hover:bg-[#D4F5EC] border-[#A7F0DC]'
-                          }`}
-                          title={isVerified ? "You verified this resource. Click to remove verification." : "Click to verify this resource helped you (1 vote per student)"}
-                        >
-                          <CheckCircle2 className={`w-3.5 h-3.5 ${isVerified ? 'text-white' : 'text-[#00D09C]'}`} />
-                          <span>
-                            {isVerified 
-                              ? `Verified by you (+${Math.max(0, res.verifiedCount - 1)})` 
-                              : `Verified by ${res.verifiedCount} students`
-                            }
-                          </span>
-                        </button>
-                      );
-                    })()}
-                  </div>
+                  </span>
                 </div>
 
-                {/* Right Action buttons */}
-                <div className="flex sm:flex-col items-center justify-between sm:justify-start gap-2 pt-2 sm:pt-0 sm:border-l sm:border-[#EAECF0] sm:pl-5 min-w-[140px]">
-                  <button
-                    onClick={() => onOpenResource(res)}
-                    className="w-full flex items-center justify-center gap-1.5 text-xs font-extrabold text-white bg-[#00D09C] hover:bg-[#00B386] active:bg-[#009E77] px-4 py-2.5 rounded-xl transition-all shadow-xs shadow-[#00D09C]/25"
-                  >
-                    <span>Open Resource</span>
-                    <ExternalLink className="w-3.5 h-3.5" />
-                  </button>
+                {/* Broken Link Warning Pill if flagged */}
+                {res.flaggedBroken && (
+                  <span className="text-[11px] font-bold px-2.5 py-0.5 rounded-md bg-rose-100 text-rose-800 border border-rose-300">
+                    Flagged Dead Link
+                  </span>
+                )}
+              </div>
 
+              {/* Resource Title */}
+              <h3 className="text-base sm:text-lg font-extrabold text-[#1E222B] hover:text-[#00D09C] transition-colors leading-snug">
+                {res.title}
+              </h3>
+
+              {/* Senior Tip Quote Box */}
+              <p className="text-xs sm:text-sm text-[#44475B] bg-[#F8FAFB] rounded-xl p-3.5 border border-[#EAECF0] leading-relaxed mt-3">
+                <span className="font-bold text-[#1E222B]">Senior Tip: </span>
+                "{res.seniorNote}"
+              </p>
+
+              {/* Card Footer: Clean Actions & Outcome Verification */}
+              <div className="flex flex-col sm:flex-row sm:items-center justify-between gap-3 pt-4 mt-4 border-t border-[#EAECF0]">
+                {/* Left: 1-Tap Student Verification */}
+                <button
+                  onClick={() => onVerifyResource(res.id)}
+                  className={`inline-flex items-center gap-1.5 text-xs font-bold px-3 py-1.5 rounded-xl transition-all cursor-pointer border ${
+                    isVerified
+                      ? 'bg-[#00D09C] text-white border-[#00B386] shadow-xs'
+                      : 'bg-[#E8FAF5] text-[#009E77] hover:bg-[#D4F5EC] border-[#A7F0DC]'
+                  }`}
+                  title={isVerified ? "You verified this resource. Click to remove verification." : "Click to verify this resource helped you (1 vote per student)"}
+                >
+                  <CheckCircle2 className={`w-3.5 h-3.5 ${isVerified ? 'text-white' : 'text-[#00D09C]'}`} />
+                  <span>
+                    {isVerified 
+                      ? `Verified by you (+${Math.max(0, res.verifiedCount - 1)})` 
+                      : `Verified by ${res.verifiedCount} students`
+                    }
+                  </span>
+                </button>
+
+                {/* Right: Actions */}
+                <div className="flex items-center gap-2 self-end sm:self-auto">
                   <button
                     onClick={() => onFlagBroken(res.id)}
-                    className={`w-full flex items-center justify-center gap-1 text-[11px] font-bold px-2.5 py-1.5 rounded-xl border transition-colors ${
+                    className={`inline-flex items-center gap-1 text-xs font-semibold px-3 py-2 rounded-xl border transition-colors cursor-pointer ${
                       res.flaggedBroken
-                        ? 'text-[#009E77] border-[#A7F0DC] hover:bg-[#E8FAF5]'
+                        ? 'text-[#009E77] border-[#A7F0DC] bg-[#E8FAF5]'
                         : 'text-[#7C7E8C] hover:text-rose-600 border-[#EAECF0] hover:border-rose-200 hover:bg-rose-50'
                     }`}
                     title={res.flaggedBroken ? "Unmark dead link" : "Report broken or inaccessible link"}
                   >
                     <Flag className="w-3 h-3" />
                     <span>{res.flaggedBroken ? "Undo Flag" : "Flag Dead Link"}</span>
+                  </button>
+
+                  <button
+                    onClick={() => onOpenResource(res)}
+                    className="inline-flex items-center gap-1.5 text-xs sm:text-sm font-extrabold text-white bg-[#00D09C] hover:bg-[#00B386] active:bg-[#009E77] px-4 py-2 rounded-xl transition-all shadow-xs shadow-[#00D09C]/25 cursor-pointer"
+                  >
+                    <span>Open Resource</span>
+                    <ExternalLink className="w-3.5 h-3.5" />
                   </button>
                 </div>
               </div>

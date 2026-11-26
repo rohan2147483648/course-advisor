@@ -1,13 +1,10 @@
 import React from 'react';
-import { Compass, BookOpen, PlusCircle, FileText, RotateCcw } from 'lucide-react';
+import { Compass, BookOpen, PlusCircle } from 'lucide-react';
 
 export default function Header({ 
   activeTab, 
   setActiveTab, 
-  onOpenSubmit, 
-  onOpenBrief,
-  onSimulateReturn,
-  hasPendingFeedback
+  onOpenSubmit
 }) {
   return (
     <header className="sticky top-0 z-30 bg-white/95 backdrop-blur-md border-b border-[#EAECF0] shadow-[0_1px_3px_rgba(0,0,0,0.03)]">
@@ -61,36 +58,11 @@ export default function Header({
             </button>
           </nav>
 
-          {/* Right Action Buttons */}
-          <div className="flex items-center space-x-2.5 shrink-0">
-            {/* 1-Page Problem Statement Brief Button */}
-            <button
-              onClick={onOpenBrief}
-              className="hidden lg:flex items-center justify-center gap-2 px-3.5 py-2 rounded-xl text-xs font-bold bg-[#F8F9FA] text-[#44475B] border border-[#EAECF0] hover:bg-[#EEF1FF] hover:text-[#5367FF] hover:border-[#CCD4FF] transition-all"
-              title="Open 1-Page Problem & Solution Brief"
-            >
-              <FileText className="w-3.5 h-3.5 text-[#5367FF]" />
-              <span>Problem Brief</span>
-            </button>
-
-            {/* Next Visit Simulator (For evaluators) */}
-            <button
-              onClick={onSimulateReturn}
-              className={`hidden sm:flex items-center justify-center gap-1.5 px-3 py-2 rounded-xl text-xs font-bold border transition-all ${
-                hasPendingFeedback
-                  ? 'bg-[#E8FAF5] text-[#009E77] border-[#00D09C] shadow-sm animate-pulse'
-                  : 'bg-white text-[#44475B] border-[#EAECF0] hover:bg-[#F8F9FA] hover:text-[#1E222B]'
-              }`}
-              title="Simulate returning to the app after exam to test feedback"
-            >
-              <RotateCcw className="w-3.5 h-3.5 text-[#00D09C]" />
-              <span className="hidden xl:inline">Simulate</span> Next Visit
-            </button>
-
-            {/* Primary Action Button (Groww Signature Teal) */}
+          {/* Right Action Button (Clean, Single Primary CTA) */}
+          <div className="flex items-center shrink-0">
             <button
               onClick={onOpenSubmit}
-              className="flex items-center justify-center gap-2 bg-[#00D09C] hover:bg-[#00B386] active:bg-[#009E77] text-white font-extrabold text-xs sm:text-sm px-4 sm:px-5 py-2 rounded-xl transition-all shadow-sm shadow-[#00D09C]/30 hover:shadow-md hover:shadow-[#00D09C]/40"
+              className="flex items-center justify-center gap-2 bg-[#00D09C] hover:bg-[#00B386] active:bg-[#009E77] text-white font-extrabold text-xs sm:text-sm px-4 sm:px-5 py-2.5 rounded-xl transition-all shadow-sm shadow-[#00D09C]/30 hover:shadow-md hover:shadow-[#00D09C]/40 cursor-pointer"
             >
               <PlusCircle className="w-4 h-4 stroke-[2.4]" />
               <span>Share a Tip</span>

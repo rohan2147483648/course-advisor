@@ -291,7 +291,7 @@ export default function App() {
               onClick={() => setIsEvalsOpen(true)}
               className="text-[#44475B] hover:text-[#00D09C] font-semibold transition-colors"
             >
-              Test Suite (11/11 Passing)
+              Evaluation Suite
             </button>
             <button
               onClick={handleSimulateReturn}
