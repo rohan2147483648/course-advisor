@@ -23,5 +23,8 @@ dist-ssr
 *.sln
 *.sw?
 
+# Word temporary files
+~$*
+
 # Vercel
 .vercel

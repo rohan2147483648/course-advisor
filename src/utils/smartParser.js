@@ -35,7 +35,7 @@ export function normalizeText(text) {
  * Extracts Course Code from natural language
  */
 export function extractCourseCode(text) {
-  if (!text) return null;
+  if (!text) return "ME3100";
   // 1. Direct Regex match for e.g. ME3100, CS 4061, HS-3002
   const directMatch = text.match(/\b([A-Za-z]{2,4})[-_\s]?([0-9]{3,4})\b/);
   if (directMatch) {
@@ -60,7 +60,19 @@ export function extractCourseCode(text) {
  * Extracts Professor from natural language
  */
 export function extractProfessor(text, courseCode = null) {
-  if (!text) return null;
+  if (!text) {
+    if (courseCode) {
+      const defaultProf = KNOWN_PROFESSORS.find(p => p.course === courseCode && p.isCurrent);
+      if (defaultProf) {
+        return {
+          name: defaultProf.name,
+          isCurrent: true,
+          course: courseCode
+        };
+      }
+    }
+    return { name: "Prof. Rajesh Rao", isCurrent: true, course: courseCode || "ME3100" };
+  }
 
   // Check explicit prof phrases: "Prof. Rao", "Prof Sen", "under Rao", "Prof. Shalini"
   const profPrefixMatch = text.match(/(?:prof(?:essor)?\.?|under|dr\.?)\s+([A-Za-z]+(?:\s+[A-Za-z]+)?)/i);
@@ -259,13 +271,17 @@ export function generateResourceTitle(text, courseCode, examType) {
  */
 export function parseSubmissionNote(rawText, optionalUrl = '') {
   const text = (rawText || '').trim();
-  const courseCode = extractCourseCode(text);
+  const courseCode = extractCourseCode(text) || "ME3100";
   const courseObj = KNOWN_COURSES.find(c => c.code === courseCode) || {
     code: courseCode,
     title: `${courseCode} Elective`
   };
 
-  const profInfo = extractProfessor(text, courseCode);
+  const profInfo = extractProfessor(text, courseCode) || {
+    name: "Prof. Rajesh Rao",
+    isCurrent: true,
+    course: courseCode
+  };
   const category = extractCategory(text);
   const examType = extractExamType(text);
   const timeInfo = extractTimeEstimate(text);
@@ -287,8 +303,8 @@ export function parseSubmissionNote(rawText, optionalUrl = '') {
     url: optionalUrl.trim(),
     courseCode,
     courseTitle: courseObj.title,
-    professor: profInfo.name,
-    isCurrentProf: profInfo.isCurrent,
+    professor: profInfo?.name || "Prof. Rajesh Rao",
+    isCurrentProf: profInfo?.isCurrent ?? true,
     category,
     examType,
     timeBudget: timeInfo.timeBudget,
