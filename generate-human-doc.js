@@ -152,57 +152,48 @@ const doc = new Document({
         new Paragraph({
           children: [
             new TextRun({
-              text: "Prompt 1: Product Architecture, Design System & Groww Theme:\n",
+              text: "1. Clean Campus UI & Navigation Setup:\n",
               bold: true,
               color: "007054"
             }),
             new TextRun({
-              text: "\"Build the core React SPA for CourseAdvisor using the Groww visual system (#00D09C teal, #5367FF blue, #1E222B text, #EAECF0 borders) with generous spacing and simple everyday student wording. Establish a clean top navigation with 'Elective Explorer' and 'Exam Resources' tabs, and a prominent 'Share a Tip' CTA button. Exclude all artificial emojis from badges and dropdowns.\"\n\n",
+              text: "\"Build a clean, high-contrast web app for CourseAdvisor using Groww's visual style (white cards, light canvas #F8FAFB, clean teal buttons, and subtle borders). Keep the navigation super simple with two main tabs: 'Elective Explorer' and 'Exam Resources', plus a prominent 'Share a Tip' button. Avoid clunky college portal designs and artificial emojis—make it feel like a polished modern app with generous breathing room.\"\n\n",
               italics: true
             }),
             new TextRun({
-              text: "Prompt 2: Elective Intelligence Engine & Professor-Drift Detection:\n",
+              text: "2. Elective Reviews & Professor-Change Alert:\n",
               bold: true,
               color: "007054"
             }),
             new TextRun({
-              text: "\"Implement Elective Explorer with multi-factor sorting (recommendation %, grading leniency 1-5, workload, attendance strictness, placement value). Automatically inspect historical student reviews and trigger an amber alert ('Prof Changed — Verify Syllabus') when a review belongs to a previous instructor so juniors avoid studying outdated material.\"\n\n",
+              text: "\"Create the Elective Explorer tab so students can browse and sort courses by grading leniency, workload, attendance strictness, and placement value. Most importantly, add an automatic warning badge ('Prof Changed — Verify Syllabus') when a senior review comes from an older instructor who no longer teaches the course, so juniors don't get misled by outdated advice.\"\n\n",
               italics: true
             }),
             new TextRun({
-              text: "Prompt 3: Exam Triage Mode & Strict Time-Budget Isolation:\n",
+              text: "3. Exam Prep Triage by Available Study Time:\n",
               bold: true,
               color: "007054"
             }),
             new TextRun({
-              text: "\"Build the Exam Resources triage view with a 3-part selector: Course, Exam Type (Quiz 1 / Midsem / Endsem), and Available Study Time ('< 1 hr', '2–4 hrs', 'Weekend'). Selecting '< 1 hr' must strictly isolate formula sheets, 1-pagers, and high-yield questions under 60 minutes and never leak bulky multi-hour lecture series. Include broken link reporting.\"\n\n",
+              text: "\"Build an Exam Resources triage tool where students pick their course, exam type (Quiz 1, Midsem, Endsem), and how much time they actually have left to study ('< 1 hr', '2–4 hrs', 'Weekend'). If a student only has under an hour, strictly filter out long lecture playlists and show only quick formula sheets, 1-pagers, and high-yield questions.\"\n\n",
               italics: true
             }),
             new TextRun({
-              text: "Prompt 4: Single-Box Natural Language Submission & Duplicate Protection:\n",
+              text: "4. 10-Second Plain-Text Tip Submission:\n",
               bold: true,
               color: "007054"
             }),
             new TextRun({
-              text: "\"Create a single natural-language submission box where students write in casual slang ('For ME3100 Midsem under Prof Rao, skip textbook—solve tut sheets 2-4, takes 2 hours max'). Automatically extract course, instructor, exam, and duration. Check against existing resources for URL collisions and semantic similarity, and warn if a duplicate already exists.\"\n\n",
+              text: "\"Add a simple '+ Share a Tip' modal with just a single text box. Let students type naturally in their own words (e.g., 'For ME3100 Midsem under Prof Rao, skip the textbook and just solve Tutorial Sheets 2 to 4, takes 2 hours max'). Automatically detect the course, professor, and time needed, check if someone already shared that link, and confirm it's published live.\"\n\n",
               italics: true
             }),
             new TextRun({
-              text: "Prompt 5: Grab-and-Leave Feedback Loop & 1-Vote-per-Student Integrity:\n",
+              text: "5. Helpful-Check Feedback Loop & 1-Vote Counter:\n",
               bold: true,
               color: "007054"
             }),
             new TextRun({
-              text: "\"Track opened resources in localStorage. When returning to the app, trigger a subtle top toast: 'Did [Resource Title] actually help for your exam?' with 1-tap '[Yes, Saved Me!]' and '[Not Useful]' buttons. Maintain an outcome verification counter that increments by exactly 1 when verified, highlights the tile, and prevents repeated vote inflation.\"\n\n",
-              italics: true
-            }),
-            new TextRun({
-              text: "Prompt 6: Automated 11-Test Evaluation Harness & Production Delivery:\n",
-              bold: true,
-              color: "007054"
-            }),
-            new TextRun({
-              text: "\"Construct a live runnable evaluation suite covering 11 automated test cases across note parsing, strict time-budget filtering, professor drift alerts, duplicate collision protection, and broken link handling. Ensure all 11 pass both in-browser and headlessly via Node.js before production bundling.\"",
+              text: "\"When a student opens a study resource, remember it. The next time they visit, show a friendly check banner asking: 'Did this resource actually help for your exam?' with quick 'Yes, Saved Me!' and 'Not Useful' buttons. In the resource cards, let students click 'Verified by X students' to add their 1 vote, instantly increasing the count and highlighting the tile in teal.\"",
               italics: true
             })
           ]

@@ -20,14 +20,14 @@ class SinglePageCanvas(canvas.Canvas):
         super().showPage()
 
 def build_pdf(filename="CourseAdvisor_Prompts_1Page.pdf"):
-    # Target: Fully spread across the entire page (Top: ~36pt, Bottom: ~755pt of 792pt)
+    # Target: Fully, evenly spread across the entire 1-page canvas (Top: ~36pt, Bottom: ~745-750pt of 792pt)
     doc = SimpleDocTemplate(
         filename,
         pagesize=letter,
         leftMargin=38,
         rightMargin=38,
-        topMargin=34,
-        bottomMargin=28
+        topMargin=36,
+        bottomMargin=32
     )
 
     styles = getSampleStyleSheet()
@@ -45,51 +45,41 @@ def build_pdf(filename="CourseAdvisor_Prompts_1Page.pdf"):
         'DocTitle',
         parent=styles['Normal'],
         fontName='Helvetica-Bold',
-        fontSize=21,
-        leading=25,
+        fontSize=22,
+        leading=26,
         textColor=dark_text,
         alignment=1, # Centered
-        spaceAfter=6
+        spaceAfter=7
     )
 
     links_style = ParagraphStyle(
         'LinksSub',
         parent=styles['Normal'],
         fontName='Helvetica',
-        fontSize=10,
-        leading=14.5,
+        fontSize=10.5,
+        leading=15,
         textColor=colors.HexColor("#4B5563"),
         alignment=1, # Centered
-        spaceAfter=14
+        spaceAfter=16
     )
 
     prompt_title_style = ParagraphStyle(
         'PromptTitle',
         parent=styles['Normal'],
         fontName='Helvetica-Bold',
-        fontSize=11,
-        leading=15,
+        fontSize=11.6,
+        leading=16,
         textColor=teal_dark,
-        spaceAfter=5
+        spaceAfter=6
     )
 
     prompt_body_style = ParagraphStyle(
         'PromptBody',
         parent=styles['Normal'],
         fontName='Helvetica',
-        fontSize=9.2,
-        leading=13.5,
+        fontSize=9.6,
+        leading=14.4,
         textColor=body_text
-    )
-
-    footer_style = ParagraphStyle(
-        'FooterNote',
-        parent=styles['Normal'],
-        fontName='Helvetica',
-        fontSize=8.3,
-        leading=12,
-        textColor=colors.HexColor("#6B7280"),
-        alignment=1 # Centered
     )
 
     story = []
@@ -97,7 +87,7 @@ def build_pdf(filename="CourseAdvisor_Prompts_1Page.pdf"):
     # 1. Centered Main Title
     story.append(Paragraph("<b>CourseAdvisor</b> — Prototype Build Prompts", title_style))
 
-    # 2. Centered Links (Author completely removed)
+    # 2. Centered Links
     links_html = (
         "<b>Live Prototype:</b> <font color='#007054'><u>https://course-advisor.vercel.app</u></font>"
         " &nbsp;&nbsp;&nbsp;•&nbsp;&nbsp;&nbsp; "
@@ -105,29 +95,29 @@ def build_pdf(filename="CourseAdvisor_Prompts_1Page.pdf"):
     )
     story.append(Paragraph(links_html, links_style))
 
-    story.append(HRFlowable(width="100%", thickness=1, color=colors.HexColor("#EAECF0"), spaceBefore=0, spaceAfter=13))
+    story.append(HRFlowable(width="100%", thickness=1, color=colors.HexColor("#EAECF0"), spaceBefore=0, spaceAfter=18))
 
-    # 5 Structured Prompts with natural wording
+    # 5 Humanized, simple, understandable prompts explaining what's happening
     prompts = [
         (
-            "1. App Foundation & Groww Design System",
-            "\"Build the frontend for CourseAdvisor—a clean web app helping college students pick electives and find exam resources without WhatsApp chaos. Use Groww's visual style: white cards, light canvas (#F8FAFB), signature teal (#00D09C) for primary buttons, and indigo (#5367FF) for accents. Give it a Linear/Raycast modern SaaS look with generous whitespace and centered tabs ('Elective Explorer' and 'Exam Resources'). Remove all artificial emojis from badges and dropdowns; use clean, simple student terminology.\""
+            "1. Clean Campus UI & Navigation Setup",
+            "\"Build a clean, high-contrast web app for CourseAdvisor using Groww's visual style (white cards, light canvas #F8FAFB, clean teal buttons, and subtle borders). Keep the navigation super simple with two main tabs: 'Elective Explorer' and 'Exam Resources', plus a prominent 'Share a Tip' button. Avoid clunky college portal designs and artificial emojis—make it feel like a polished modern app with generous breathing room.\""
         ),
         (
-            "2. Elective Explorer & Syllabus-Drift Protection",
-            "\"Build the Elective Explorer tab with multi-factor sorting (grading leniency 1-5, workload, attendance strictness, placement value) and filters ('Easy A', 'Chill Attendance', 'Project-Based', 'Core Heavy'). Add seed courses like CS4061 and ME3100. Most importantly, solve professor rotation: if historical reviews belong to a previous teacher (e.g. Prof. Raman vs current Prof. Sen), display an amber alert ('Prof Changed — Verify Syllabus') on the card and in the review drawer so juniors don't prep off obsolete advice.\""
+            "2. Elective Reviews & Professor-Change Alert",
+            "\"Create the Elective Explorer tab so students can browse and sort courses by grading leniency, workload, attendance strictness, and placement value. Most importantly, add an automatic warning badge ('Prof Changed — Verify Syllabus') when a senior review comes from an older instructor who no longer teaches the course, so juniors don't get misled by outdated advice.\""
         ),
         (
-            "3. Exam Resources Triage & Strict Time Budgeting",
-            "\"Create the Exam Resources triage view with a 3-part selector: Course, Exam Type (Quiz 1 / Midsem / Endsem), and Available Study Time ('< 1 hr', '2–4 hrs', 'Full Weekend'). Make the time filter strict: selecting '< 1 hr' must only show 1-pagers, formula sheets, and high-yield questions under 60 minutes, strictly hiding bulky multi-hour lecture series. On each card, display the title, senior tip quote, a 1-tap 'Verified by X students' counter, an 'Open Resource' button, and a 'Flag Dead Link' button.\""
+            "3. Exam Prep Triage by Available Study Time",
+            "\"Build an Exam Resources triage tool where students pick their course, exam type (Quiz 1, Midsem, Endsem), and how much time they actually have left to study ('< 1 hr', '2–4 hrs', 'Weekend'). If a student only has under an hour, strictly filter out long lecture playlists and show only quick formula sheets, 1-pagers, and high-yield questions.\""
         ),
         (
-            "4. 10-Second Note Submission & Duplicate Detection",
-            "\"Add a '+ Share a Tip' modal with a single text box where students can write in plain everyday language (e.g., 'For ME3100 Midsem under Prof Rao, skip the textbook—just solve Tut Sheets 2-4, takes 2 hours max and 3 questions came directly from it'). Automatically parse the course code, professor, exam phase, and study duration. Cross-check against existing entries to detect exact URL collisions or duplicate topics, and show a success confirmation card with a direct 'View in Exam Resources' button.\""
+            "4. 10-Second Plain-Text Tip Submission",
+            "\"Add a simple '+ Share a Tip' modal with just a single text box. Let students type naturally in their own words (e.g., 'For ME3100 Midsem under Prof Rao, skip the textbook and just solve Tutorial Sheets 2 to 4, takes 2 hours max'). Automatically detect the course, professor, and time needed, check if someone already shared that link, and confirm it's published live.\""
         ),
         (
-            "5. Post-Exam Feedback Loop & 1-Vote Integrity",
-            "\"Implement an outcome verification loop. When a student opens any study link, store it in localStorage. When they return (or when clicking 'Simulate Return Visit'), show a friendly top banner: 'Did [Resource Title] help for your exam?' with 1-tap 'Yes, Saved Me!' and 'Not Useful' buttons. In the resources list, make 'Verified by X students' clickable: clicking it must visibly increase the total count by exactly 1 and highlight the badge in teal, while clicking again toggles it off. Disallow repeated inflation.\""
+            "5. Helpful-Check Feedback Loop & 1-Vote Counter",
+            "\"When a student opens a study resource, remember it. The next time they visit, show a friendly check banner asking: 'Did this resource actually help for your exam?' with quick 'Yes, Saved Me!' and 'Not Useful' buttons. In the resource cards, let students click 'Verified by X students' to add their 1 vote, instantly increasing the count and highlighting the tile in teal.\""
         )
     ]
 
@@ -142,21 +132,13 @@ def build_pdf(filename="CourseAdvisor_Prompts_1Page.pdf"):
             ('BACKGROUND', (0,0), (-1,-1), box_bg),
             ('BOX', (0,0), (-1,-1), 0.75, box_border),
             ('LINELEFT', (0,0), (0,0), 3.5, line_accent),
-            ('TOPPADDING', (0,0), (-1,-1), 9.5),
-            ('BOTTOMPADDING', (0,0), (-1,-1), 9.5),
-            ('LEFTPADDING', (0,0), (-1,-1), 11),
-            ('RIGHTPADDING', (0,0), (-1,-1), 11),
+            ('TOPPADDING', (0,0), (-1,-1), 12),
+            ('BOTTOMPADDING', (0,0), (-1,-1), 12),
+            ('LEFTPADDING', (0,0), (-1,-1), 13),
+            ('RIGHTPADDING', (0,0), (-1,-1), 13),
         ]))
         story.append(box_table)
-        story.append(Spacer(1, 15))
-
-    # Bottom footer rule and note
-    story.append(Spacer(1, 4))
-    story.append(HRFlowable(width="100%", thickness=0.75, color=colors.HexColor("#EAECF0"), spaceBefore=2, spaceAfter=6))
-    story.append(Paragraph(
-        "<b>Verification Note:</b> All 5 prompt modules are live, fully functional, and pass all 11 automated test scenarios (node test-runner.js). Open the live prototype link above to interact directly without backend authentication.",
-        footer_style
-    ))
+        story.append(Spacer(1, 19))
 
     # Build and check
     test_canvas = SinglePageCanvas
