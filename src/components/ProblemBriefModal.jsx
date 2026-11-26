@@ -160,25 +160,55 @@ export default function ProblemBriefModal({ isOpen, onClose }) {
 
           {activeTab === 'prompts' && (
             <div className="space-y-4">
-              <h3 className="text-base font-extrabold text-slate-900">
+              <h3 className="text-base font-extrabold text-[#1E222B]">
                 Prompts Used to Architect & Build CourseAdvisor
               </h3>
-              <p className="text-xs text-slate-600">
-                Below are the core system specifications and prompt instructions used to craft CourseAdvisor:
+              <p className="text-xs text-[#5B6275]">
+                The complete 6-stage structured prompt sequence used to design, code, style with Groww tokens, and evaluate the prototype:
               </p>
 
-              <div className="bg-slate-900 text-slate-100 p-4 rounded-xl text-xs font-mono space-y-3 overflow-x-auto">
-                <div className="text-emerald-400 font-bold">// System Architect Prompt:</div>
-                <p>
-                  "Act as a Principal Product Designer & Staff Frontend Engineer. Build CourseAdvisor—a campus-specific Elective Intelligence & Exam Resource Triage web application.
-                  Enforce strict consumer SaaS aesthetics (Linear/Raycast inspired, high-contrast light theme, semantic badges).
-                  Implement:
-                  1. Elective Explorer with multi-factor sorting (Grading, Workload, Attendance, Placement) and Professor-Drift warning badges.
-                  2. Exam Triage Mode with hard time budgets (&lt; 1 hr, 2-4 hrs, Full Weekend) that never leaks long resources into micro-cram windows.
-                  3. 10-Second Natural-Language Submission Modal with deterministic regex/NLP parser and duplicate collision prevention.
-                  4. Grab-and-Leave feedback loop tracking clicked resources with 1-tap post-exam outcome verification.
-                  5. Built-in runnable Evaluation Suite with &gt;=10 live test cases covering parsing, time-budgets, prof drift, and duplicates."
-                </p>
+              <div className="space-y-3">
+                <div className="bg-[#F8FAFB] border border-[#EAECF0] rounded-xl p-3.5 space-y-1">
+                  <span className="text-xs font-bold text-[#007054] block">1. Product Architecture & Groww Theme:</span>
+                  <p className="text-xs font-mono text-[#2D3139] leading-relaxed">
+                    "Build the core React SPA for CourseAdvisor using the Groww visual system (#00D09C teal, #5367FF blue, #1E222B text, #EAECF0 borders) with generous spacing and simple everyday student wording. Establish a clean top navigation with 'Elective Explorer' and 'Exam Resources' tabs, and a prominent 'Share a Tip' CTA button. Exclude all artificial emojis from badges and dropdowns."
+                  </p>
+                </div>
+
+                <div className="bg-[#F8FAFB] border border-[#EAECF0] rounded-xl p-3.5 space-y-1">
+                  <span className="text-xs font-bold text-[#007054] block">2. Elective Intelligence Engine & Professor-Drift Detection:</span>
+                  <p className="text-xs font-mono text-[#2D3139] leading-relaxed">
+                    "Implement Elective Explorer with multi-factor sorting (recommendation %, grading leniency 1-5, workload, attendance strictness, placement value). Automatically inspect historical student reviews and trigger an amber alert ('Prof Changed — Verify Syllabus') when a review belongs to a previous instructor so juniors avoid studying outdated material."
+                  </p>
+                </div>
+
+                <div className="bg-[#F8FAFB] border border-[#EAECF0] rounded-xl p-3.5 space-y-1">
+                  <span className="text-xs font-bold text-[#007054] block">3. Exam Triage Mode & Strict Time-Budget Isolation:</span>
+                  <p className="text-xs font-mono text-[#2D3139] leading-relaxed">
+                    "Build the Exam Resources triage view with a 3-part selector: Course, Exam Type (Quiz 1 / Midsem / Endsem), and Available Study Time (&apos;&lt; 1 hr&apos;, &apos;2–4 hrs&apos;, &apos;Weekend&apos;). Selecting &apos;&lt; 1 hr&apos; must strictly isolate formula sheets, 1-pagers, and high-yield questions under 60 minutes and never leak bulky multi-hour lecture series. Include broken link reporting."
+                  </p>
+                </div>
+
+                <div className="bg-[#F8FAFB] border border-[#EAECF0] rounded-xl p-3.5 space-y-1">
+                  <span className="text-xs font-bold text-[#007054] block">4. Single-Box Natural Language Submission & Duplicate Protection:</span>
+                  <p className="text-xs font-mono text-[#2D3139] leading-relaxed">
+                    "Create a single natural-language submission box where students write in casual slang ('For ME3100 Midsem under Prof Rao, skip textbook—solve tut sheets 2-4, takes 2 hours max'). Automatically extract course, instructor, exam, and duration. Check against existing resources for URL collisions and semantic similarity, and warn if a duplicate already exists."
+                  </p>
+                </div>
+
+                <div className="bg-[#F8FAFB] border border-[#EAECF0] rounded-xl p-3.5 space-y-1">
+                  <span className="text-xs font-bold text-[#007054] block">5. Grab-and-Leave Feedback Loop & 1-Vote-per-Student Integrity:</span>
+                  <p className="text-xs font-mono text-[#2D3139] leading-relaxed">
+                    "Track opened resources in localStorage. When returning to the app, trigger a subtle top toast: 'Did [Resource Title] actually help for your exam?' with 1-tap '[Yes, Saved Me!]' and '[Not Useful]' buttons. Maintain an outcome verification counter that increments by exactly 1 when verified, highlights the tile, and prevents repeated vote inflation."
+                  </p>
+                </div>
+
+                <div className="bg-[#F8FAFB] border border-[#EAECF0] rounded-xl p-3.5 space-y-1">
+                  <span className="text-xs font-bold text-[#007054] block">6. Automated 11-Test Evaluation Harness & Production Delivery:</span>
+                  <p className="text-xs font-mono text-[#2D3139] leading-relaxed">
+                    "Construct a live runnable evaluation suite covering 11 automated test cases across note parsing, strict time-budget filtering, professor drift alerts, duplicate collision protection, and broken link handling. Ensure all 11 pass both in-browser and headlessly via Node.js before production bundling."
+                  </p>
+                </div>
               </div>
             </div>
           )}

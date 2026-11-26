@@ -152,24 +152,57 @@ const doc = new Document({
         new Paragraph({
           children: [
             new TextRun({
-              text: "System Prompt 1 (Product Architecture & Visual Standards):\n",
-              bold: true
+              text: "Prompt 1: Product Architecture, Design System & Groww Theme:\n",
+              bold: true,
+              color: "007054"
             }),
             new TextRun({
-              text: "\"Build CourseAdvisor—a high-contrast, clean web application for university students to choose electives and triage exam resources under strict time pressure. Use Groww brand colors (#00D09C teal, #5367FF blue, #1E222B dark text, #EAECF0 borders) with generous spacing and simple everyday student wording (no AI jargon). Implement: (1) Elective Explorer with multi-factor sorting (grading, workload, attendance, placement ROI) and an automatic alert when a review comes from a previous professor; (2) Exam Resources triage with strict time budgets (< 1 hr, 2-4 hrs, Weekend) that never leaks long lectures into short study sessions; (3) Single-box tip submission with duplicate detection; (4) 1-vote-per-person exam verification check.\"",
+              text: "\"Build the core React SPA for CourseAdvisor using the Groww visual system (#00D09C teal, #5367FF blue, #1E222B text, #EAECF0 borders) with generous spacing and simple everyday student wording. Establish a clean top navigation with 'Elective Explorer' and 'Exam Resources' tabs, and a prominent 'Share a Tip' CTA button. Exclude all artificial emojis from badges and dropdowns.\"\n\n",
               italics: true
-            })
-          ]
-        }),
-
-        new Paragraph({
-          children: [
-            new TextRun({
-              text: "System Prompt 2 (Polishing UX, Eliminating AI Emojis & Form Delight):\n",
-              bold: true
             }),
             new TextRun({
-              text: "\"Refine the submission flow so clicking 'Share a Tip' opens a clean modal with instant auto-detected tags, and upon publishing, displays a celebratory confirmation screen with a live preview card and direct button to 'View in Exam Resources'. Remove all artificial emojis from time badges and dropdowns. Ensure the verified counter allows only 1 toggle vote per student.\"",
+              text: "Prompt 2: Elective Intelligence Engine & Professor-Drift Detection:\n",
+              bold: true,
+              color: "007054"
+            }),
+            new TextRun({
+              text: "\"Implement Elective Explorer with multi-factor sorting (recommendation %, grading leniency 1-5, workload, attendance strictness, placement value). Automatically inspect historical student reviews and trigger an amber alert ('Prof Changed — Verify Syllabus') when a review belongs to a previous instructor so juniors avoid studying outdated material.\"\n\n",
+              italics: true
+            }),
+            new TextRun({
+              text: "Prompt 3: Exam Triage Mode & Strict Time-Budget Isolation:\n",
+              bold: true,
+              color: "007054"
+            }),
+            new TextRun({
+              text: "\"Build the Exam Resources triage view with a 3-part selector: Course, Exam Type (Quiz 1 / Midsem / Endsem), and Available Study Time ('< 1 hr', '2–4 hrs', 'Weekend'). Selecting '< 1 hr' must strictly isolate formula sheets, 1-pagers, and high-yield questions under 60 minutes and never leak bulky multi-hour lecture series. Include broken link reporting.\"\n\n",
+              italics: true
+            }),
+            new TextRun({
+              text: "Prompt 4: Single-Box Natural Language Submission & Duplicate Protection:\n",
+              bold: true,
+              color: "007054"
+            }),
+            new TextRun({
+              text: "\"Create a single natural-language submission box where students write in casual slang ('For ME3100 Midsem under Prof Rao, skip textbook—solve tut sheets 2-4, takes 2 hours max'). Automatically extract course, instructor, exam, and duration. Check against existing resources for URL collisions and semantic similarity, and warn if a duplicate already exists.\"\n\n",
+              italics: true
+            }),
+            new TextRun({
+              text: "Prompt 5: Grab-and-Leave Feedback Loop & 1-Vote-per-Student Integrity:\n",
+              bold: true,
+              color: "007054"
+            }),
+            new TextRun({
+              text: "\"Track opened resources in localStorage. When returning to the app, trigger a subtle top toast: 'Did [Resource Title] actually help for your exam?' with 1-tap '[Yes, Saved Me!]' and '[Not Useful]' buttons. Maintain an outcome verification counter that increments by exactly 1 when verified, highlights the tile, and prevents repeated vote inflation.\"\n\n",
+              italics: true
+            }),
+            new TextRun({
+              text: "Prompt 6: Automated 11-Test Evaluation Harness & Production Delivery:\n",
+              bold: true,
+              color: "007054"
+            }),
+            new TextRun({
+              text: "\"Construct a live runnable evaluation suite covering 11 automated test cases across note parsing, strict time-budget filtering, professor drift alerts, duplicate collision protection, and broken link handling. Ensure all 11 pass both in-browser and headlessly via Node.js before production bundling.\"",
               italics: true
             })
           ]

@@ -260,10 +260,7 @@ export default function ExamTriage({ resources, onOpenResource, onFlagBroken, on
                 >
                   <CheckCircle2 className={`w-3.5 h-3.5 ${isVerified ? 'text-white' : 'text-[#00D09C]'}`} />
                   <span>
-                    {isVerified 
-                      ? `Verified by you (+${Math.max(0, res.verifiedCount - 1)})` 
-                      : `Verified by ${res.verifiedCount} students`
-                    }
+                    Verified by {res.verifiedCount} students{isVerified ? ' (Verified)' : ''}
                   </span>
                 </button>
 
